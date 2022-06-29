@@ -11,10 +11,10 @@ export const databaseProviders = [
         port: 5432,
         username: process.env.DB_USERNAME,
         password: process.env.DB_PASSWORD,
-        database: 'postgres',
+        database: 'Movie_DB',
         dialectModule: pg,
       });
-      sequelize.addModels([]);
+      sequelize.addModels([__dirname + '/Entity']);
       await sequelize.sync();
       return sequelize;
     },

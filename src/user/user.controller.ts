@@ -9,16 +9,13 @@ export class UserController {
     constructor(private readonly userService: UserService) { }
     @Post('register')
     @UsePipes(ValidationPipe)
-    register(@Body() createUserDto: CreateUserDto) {
-        return this.userService.createUser(createUserDto);
+    async register(@Body() createUserDto: CreateUserDto) {
+        return await this.userService.createUser(createUserDto);
     }
 
     @UseInterceptors(ClassSerializerInterceptor)
     @Post('login')
-    login(@Body() loginUserDto: LoginUserDto) {
-        const user = this.userService.loginUser(loginUserDto);
-        if (user) return new SerializedUser(user);
-        else
-            throw new HttpException('User Does not Exist', HttpStatus.NOT_FOUND);
+    async login(@Body() loginUserDto: LoginUserDto) {
+        return await this.userService.loginUser(loginUserDto);
     }
 }
