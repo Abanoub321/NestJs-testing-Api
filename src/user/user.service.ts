@@ -1,5 +1,6 @@
 import { HttpStatus, Inject, Injectable } from '@nestjs/common';
 const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
 import User from 'src/database/Entity/User.entity';
 import ResponseInterface from 'src/Interfaces/ResponseInterface';
 import { CreateUserDto } from './dto/createUser.dto';
@@ -37,15 +38,14 @@ export class UserService {
 
     async loginUser(loginUserDto: LoginUserDto): Promise<ResponseInterface> {
         const user = await this.usersRepository.findOne({
-            where: { phone: loginUserDto.phone }, attributes: {
-                exclude: ['password']
-            }
+            where: { phone: loginUserDto.phone }
         });
-        if (user) return {
-            code: HttpStatus.OK,
-            status: true,
-            data: user.toJSON()
-        };
+        if (!user)
+            return {
+                code: HttpStatus.NOT_FOUND,
+                status: false,
+                message: 'User not found',
+            };
         const isValidPassword = await bcrypt.compare(loginUserDto.password, user.password);
         if (!isValidPassword)
             return {
@@ -53,11 +53,14 @@ export class UserService {
                 status: false,
                 message: 'Invalid password',
             };
-        else
+        else {
+            const token = jwt.sign({ userId: user.id, role: user.userType }, process.env.JWT_SECRET, { expiresIn: '1h' });
             return {
-                code: HttpStatus.NOT_FOUND,
-                status: false,
-                message: 'User not found',
+                code: HttpStatus.OK,
+                status: true,
+                data: token
             };
+        }
+
     }
 }
