@@ -1,4 +1,5 @@
 import { HttpStatus, Inject, Injectable } from '@nestjs/common';
+const bcrypt = require('bcrypt');
 import User from 'src/database/Entity/User.entity';
 import ResponseInterface from 'src/Interfaces/ResponseInterface';
 import { CreateUserDto } from './dto/createUser.dto';
@@ -23,6 +24,8 @@ export class UserService {
                 message: 'Phone already exist',
             };
         }
+        const hashedPassword = await bcrypt.hash(user.password, 10);
+        user.password = hashedPassword;
         const savedUser = await this.usersRepository.create({ ...user });
         savedUser.save();
         return {
@@ -43,6 +46,13 @@ export class UserService {
             status: true,
             data: user.toJSON()
         };
+        const isValidPassword = await bcrypt.compare(loginUserDto.password, user.password);
+        if (!isValidPassword)
+            return {
+                code: HttpStatus.BAD_REQUEST,
+                status: false,
+                message: 'Invalid password',
+            };
         else
             return {
                 code: HttpStatus.NOT_FOUND,
