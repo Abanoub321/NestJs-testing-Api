@@ -2,7 +2,7 @@ import { Exclude } from 'class-transformer';
 import { Table, Column, Model, Default } from 'sequelize-typescript';
 import UserRole from 'src/Enums/userRole';
 
-@Table({ tableName: 'users' })
+@Table({ tableName: 'Movie' })
 export default class Movie extends Model {
     @Column({})
     name: string;
@@ -11,5 +11,5 @@ export default class Movie extends Model {
     image: string;
     
     @Column({field: 'release_year'})
-    releaseYear: string;
+    releaseYear: number;
 }
