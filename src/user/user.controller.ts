@@ -1,6 +1,6 @@
 import { Body, Controller, Post, UsePipes, ValidationPipe } from '@nestjs/common';
 import { ApiResponse, ApiTags } from '@nestjs/swagger';
-import Forbidden from 'src/Interfaces/HTTP_responses.ts/Forrbidden';
+import Forbidden from 'src/Interfaces/HTTP_responses/Forrbidden';
 import { CreateUserDto } from './dto/createUser.dto';
 import { UserService } from './user.service';
 

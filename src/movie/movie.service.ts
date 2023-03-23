@@ -1,6 +1,6 @@
 import { HttpStatus, Inject, Injectable } from '@nestjs/common';
 import Movie from 'src/database/Entity/Movie.entity';
-import ResponseInterface from 'src/Interfaces/ResponseInterface';
+import ResponseInterface from 'src/Interfaces/HTTP_responses/ResponseInterface';
 import { NewMovieDto } from './dto/newMovie.dto';
 
 @Injectable()
