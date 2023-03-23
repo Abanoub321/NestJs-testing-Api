@@ -1,7 +1,7 @@
 import { HttpStatus, Inject, Injectable } from '@nestjs/common';
 const bcrypt = require('bcrypt');
 import User from 'src/database/Entity/User.entity';
-import ResponseInterface from 'src/Interfaces/ResponseInterface';
+import ResponseInterface from 'src/Interfaces/HTTP_responses.ts/ResponseInterface';
 import { CreateUserDto } from './dto/createUser.dto';
 
 
