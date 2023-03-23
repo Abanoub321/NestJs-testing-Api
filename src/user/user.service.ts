@@ -1,7 +1,7 @@
 import { HttpStatus, Inject, Injectable } from '@nestjs/common';
 const bcrypt = require('bcrypt');
 import User from 'src/database/Entity/User.entity';
-import ResponseInterface from 'src/Interfaces/HTTP_responses.ts/ResponseInterface';
+import ResponseInterface from 'src/Interfaces/HTTP_responses/ResponseInterface';
 import { CreateUserDto } from './dto/createUser.dto';
 
 
@@ -38,5 +38,9 @@ export class UserService {
         return await this.usersRepository.findOne({
             where: { phone: phoneNumber }
         });
+    }
+
+    async findUsers(): Promise<User[]> {
+        return await this.usersRepository.findAll();
     }
 }
