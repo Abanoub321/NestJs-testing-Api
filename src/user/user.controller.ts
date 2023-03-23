@@ -1,9 +1,12 @@
-import { Body, ClassSerializerInterceptor, Controller, HttpException, HttpStatus, Post, UseInterceptors, UsePipes, ValidationPipe } from '@nestjs/common';
+import { Body, Controller, Post, UsePipes, ValidationPipe } from '@nestjs/common';
+import { ApiResponse, ApiTags } from '@nestjs/swagger';
+import Forbidden from 'src/Interfaces/HTTP_responses.ts/Forrbidden';
 import { CreateUserDto } from './dto/createUser.dto';
-import { LoginUserDto } from './dto/loginUser.dto';
-import SerializedUser from './interfaces/serlializedUser';
 import { UserService } from './user.service';
 
+@ApiResponse({ status: 403, type: Forbidden, })
+
+@ApiTags('user')
 @Controller('user')
 export class UserController {
     constructor(private readonly userService: UserService) { }
@@ -11,11 +14,5 @@ export class UserController {
     @UsePipes(ValidationPipe)
     async register(@Body() createUserDto: CreateUserDto) {
         return await this.userService.createUser(createUserDto);
-    }
-
-    @UseInterceptors(ClassSerializerInterceptor)
-    @Post('login')
-    async login(@Body() loginUserDto: LoginUserDto) {
-        return await this.userService.loginUser(loginUserDto);
     }
 }
