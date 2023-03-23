@@ -1,5 +1,24 @@
 {
   "$schema": "https://json.schemastore.org/nest-cli",
   "collection": "@nestjs/schematics",
-  "sourceRoot": "src"
+  "sourceRoot": "src",
+  "compilerOptions": {
+    "plugins": [
+      {
+        "name": "@nestjs/swagger",
+        "options": {
+          "classValidatorShim": false,
+          "introspectComments": true,
+          "exclude": [
+            "**/*.module.ts",
+            "**/*.spec.ts",
+            "**/*.e2e-spec.ts",
+            "**/*.interface.ts",
+            "**/*.dto.ts",
+            "**/*.entity.ts"
+          ]
+        }
+      }
+    ]
+  }
 }
