@@ -22,7 +22,7 @@ export class AuthService {
   async login(user: any) {
     if (user.message === "Unauthorized")
       return user;
-    const payload = { phone: user.phone, role: user.userType };
+    const payload = { id: user.id, role: user.userType };
     return {
       access_token: this.jwtService.sign(payload),
     };

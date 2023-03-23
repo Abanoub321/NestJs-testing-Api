@@ -13,9 +13,15 @@ import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
 @Controller('user')
 export class UserController {
     constructor(private readonly userService: UserService) { }
-    @Get('/')
+
+    @Get('/profile')
     @ApiBearerAuth()
     @UseGuards(JwtAuthGuard) 
+    async getProfile(@CurrentUser() user: {userId: number, role: string}) {
+        return await this.userService.findUserById(user.userId);
+    }
+
+    @Get('/')
     async getUser(@CurrentUser() user: User) {
         return await this.userService.findUsers();
     }
