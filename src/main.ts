@@ -8,8 +8,8 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   app.use(morgan('dev'));
   const config = new DocumentBuilder()
-    .setTitle('Movies API')
-    .setDescription('The movies API description')
+    .setTitle('NestJS API')
+    .setDescription('The NestJs API description')
     .setVersion('1.0')
     .addBearerAuth({
       type: 'http',

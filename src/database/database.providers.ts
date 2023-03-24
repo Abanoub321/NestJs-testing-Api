@@ -11,7 +11,7 @@ export const databaseProviders = [
         port: 5432,
         username: process.env.DB_USERNAME,
         password: process.env.DB_PASSWORD,
-        database: 'Movie_DB',
+        database: 'Test_DB',
         dialectModule: pg,
         sync: { alter: true }
       });
