@@ -16,6 +16,8 @@ export default class User extends Model {
     })
     phone: string;
 
+    @Column({ allowNull: true })
+    profileImage: string;
 
     @Default(UserRole.User)
     @Column({})

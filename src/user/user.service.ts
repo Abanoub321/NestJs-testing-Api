@@ -49,4 +49,24 @@ export class UserService {
             where: { id }
         });
     }
+
+    async updateProfilePicture(userId: number, file: Express.Multer.File): Promise<ResponseInterface> {
+        const user = await this.usersRepository.findOne({
+            where: { id: userId }
+        });
+        if(!user) {
+            return {
+                code: HttpStatus.NOT_FOUND,
+                status: false,
+                message: 'User not found',
+            };
+        }
+        user.profileImage = file.path;
+        user.save();
+        return {
+            code: HttpStatus.OK,
+            status: true,
+            message: 'Profile picture updated successfully',
+        };
+    }
 }

@@ -13,6 +13,7 @@ export const databaseProviders = [
         password: process.env.DB_PASSWORD,
         database: 'Movie_DB',
         dialectModule: pg,
+        sync: { alter: true }
       });
       sequelize.addModels([__dirname + '/Entity']);
       await sequelize.sync();
